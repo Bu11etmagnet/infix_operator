@@ -118,15 +118,23 @@ int main()
     auto constexpr fourty_two = 6 <times> 7;
     auto constexpr eris = 10 <plus> 3;
 
-    static_assert(fourty_two == 42);
+    static_assert(fourty_two == 42, "The answer is wrong");
     static_assert(eris == 13, "You displease Eris");
 
     std::cout << "6 * 7 = " << fourty_two << "\n";
     std::cout << "Hail Eris " << eris << "\n";
 
+    auto constexpr answer2 = 100 <divided_by> 2 <minus> 10 <plus> 2;
+    static_assert(answer2 == 42, "The answer is wrong");
+
+    auto constexpr one23 = 1 <plus> 2 <times> 3;
+    static_assert(one23 == 9, "Left-to-right evaluation");
+    auto constexpr use_parens  = 1 <plus> (2 <times> 3);
+    static_assert(use_parens == 7, "You have to use parens");
+
     std::string meow{"meow"};
     std::string multimeow = meow * 2;
     std::cout << "Cat says " << multimeow << "\n";
-    multimeow = meow <times> (std::size_t)3;
+    multimeow = meow <times> 3;
     std::cout << "Cat says " << multimeow << "\n";
 }
