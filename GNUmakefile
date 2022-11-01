@@ -27,3 +27,8 @@ all: infix
 infix: infix.o
 # Without this, make uses the built-in cpp -> exe rule,
 # not the cpp -> o -> exe chain.
+
+clean:
+	rm -f infix infix.o
+
+.PHONY: all clean
