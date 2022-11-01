@@ -2,6 +2,17 @@
 #include <type_traits>
 #include <utility> // swap
 
+#include <string>
+std::string operator*(std::string const& str, std::size_t multiplier)
+{
+    std::string retval;
+    retval.reserve(str.size() * multiplier);
+    for (std::size_t i = 0; i < multiplier; ++i) {
+        retval += str;
+    }
+    return retval;
+}
+
 namespace detail {
 
 template<
@@ -37,11 +48,11 @@ namespace infix {
 constexpr struct swap_operator {
     typedef void binary_operator_tag;
 
-    template<typename T>
-    void operator()(T &a, T& b) const
+    template<typename L, typename R>
+    void operator()(L &lhs, R& rhs) const
     {
         using std::swap;
-        swap(a, b);
+        swap(lhs, rhs);
     }
 } swap = swap_operator{};
 
@@ -49,10 +60,10 @@ constexpr struct add_op
 {
     typedef void binary_operator_tag;
 
-    template<typename T>
-    auto constexpr operator()(T const& a, T const& b) const -> decltype(a + b)
+    template<typename L, typename R>
+    auto constexpr operator()(L const& lhs, R const& rhs) const -> decltype(lhs + rhs)
     {
-        return a + b;
+        return lhs + rhs;
     }
 } plus = add_op{};
 
@@ -60,10 +71,10 @@ constexpr struct sub_op
 {
     typedef void binary_operator_tag;
 
-    template<typename T>
-    auto constexpr operator()(T const& a, T const& b) const -> decltype(a - b)
+    template<typename L, typename R>
+    auto constexpr operator()(L const& lhs, R const& rhs) const -> decltype(lhs - rhs)
     {
-        return a - b;
+        return lhs - rhs;
     }
 } minus = sub_op{};
 
@@ -71,10 +82,10 @@ constexpr struct mul_op
 {
     typedef void binary_operator_tag;
 
-    template<typename T>
-    auto constexpr operator()(T const& a, T const& b) const -> decltype(a * b)
+    template<typename L, typename R>
+    auto constexpr operator()(L const& lhs, R const& rhs) const -> decltype(lhs * rhs)
     {
-        return a * b;
+        return lhs * rhs;
     }
 } times = mul_op{};
 
@@ -82,27 +93,15 @@ constexpr struct div_op
 {
     typedef void binary_operator_tag;
 
-    template<typename T>
-    auto constexpr operator()(T const& a, T const& b) const -> decltype(a / b)
+    template<typename L, typename R>
+    auto constexpr operator()(L const& lhs, R const& rhs) const -> decltype(lhs / rhs)
     {
-        return a / b;
+        return lhs / rhs;
     }
 } divided_by = div_op{};
 
-
 }
 using namespace infix;
-
-#include <string>
-std::string operator*(std::string const& str, std::size_t multiplier)
-{
-    std::string retval;
-    retval.reserve(str.size() * multiplier);
-    for (std::size_t i = 0; i < multiplier; ++i) {
-        retval += str;
-    }
-    return retval;
-}
 
 #include <iostream>
 
@@ -128,5 +127,6 @@ int main()
     std::string meow{"meow"};
     std::string multimeow = meow * 2;
     std::cout << "Cat says " << multimeow << "\n";
-    multimeow = meow <times> 3;
+    multimeow = meow <times> (std::size_t)3;
+    std::cout << "Cat says " << multimeow << "\n";
 }
