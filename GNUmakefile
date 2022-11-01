@@ -1,6 +1,6 @@
 CFLAGS :=
 CPPFLAGS :=
-CXXFLAGS := -Wall -Wpedantic -Wextra -Werror -std=c++17 -g
+CXXFLAGS := -Wall -Wpedantic -Wextra -Werror -std=c++14 -g -Wno-error=parentheses
 LDFLAGS  := -g
 
 
