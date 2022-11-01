@@ -115,13 +115,13 @@ int main()
 
     std::cout << "After : a=" << a << ", b=" << b << "\n";
 
-    auto constexpr fourty_two = 6 <times> 7;
+    auto constexpr forty_two = 6 <times> 7;
     auto constexpr eris = 10 <plus> 3;
 
-    static_assert(fourty_two == 42, "The answer is wrong");
+    static_assert(forty_two == 42, "The answer is wrong");
     static_assert(eris == 13, "You displease Eris");
 
-    std::cout << "6 * 7 = " << fourty_two << "\n";
+    std::cout << "6 * 7 = " << forty_two << "\n";
     std::cout << "Hail Eris " << eris << "\n";
 
     auto constexpr answer2 = 100 <divided_by> 2 <minus> 10 <plus> 2;
@@ -133,8 +133,8 @@ int main()
     static_assert(use_parens == 7, "You have to use parens");
 
     std::string meow{"meow"};
-    std::string multimeow = meow * 2;
-    std::cout << "Cat says " << multimeow << "\n";
-    multimeow = meow <times> 3;
-    std::cout << "Cat says " << multimeow << "\n";
+    std::string multi_meow = meow * 2;
+    std::cout << "Cat says " << multi_meow << "\n";
+    multi_meow = meow <times> 3;
+    std::cout << "Cat says " << multi_meow << "\n";
 }
